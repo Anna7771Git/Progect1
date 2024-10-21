@@ -1,22 +1,39 @@
 package org.example;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage {
 
-    WebDriver driver = new ChromeDriver();
+    WebDriver driver;
 
-    WebElement input1 = driver.findElement(By.id("input-email"));
-    WebElement input2 = driver.findElement(By.id("input-password"));
-    WebElement submitButton = driver.findElement(By.xpath("//input[@class=\"btn btn-primary-login\"]"));
 
-    public void login(String login, String pass) {
+    public LoginPage(WebDriver driver){
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
 
-        input1.sendKeys(login);
-        input2.sendKeys(pass);
-        submitButton.click();
+
     }
-}
+    @FindBy(id="input-email")
+    WebElement input1;
+
+    @FindBy(id = "input-password")
+    WebElement input2;
+
+    @FindBy(xpath = "//input[@class=\"btn btn-primary-login\"]")
+    WebElement submitButton;
+
+
+    public void enterEmail(){
+        input1.sendKeys("anna.smirnova0502@gmail.com");
+    }
+    public void enterPass() {
+        input2.sendKeys("test911");
+    }
+        public void submitLogin(){
+            submitButton.click();
+        }
+    }
+

@@ -1,3 +1,5 @@
+import org.example.ResultPage;
+import org.example.SearchPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,6 +12,9 @@ import org.testng.annotations.Test;
 public class TestAnnaDZ2 {
 
     WebDriver driver;
+    SearchPage searchPage;
+    ResultPage resultPage;
+
 
     @BeforeTest
     public void setupDriver() {
@@ -18,25 +23,22 @@ public class TestAnnaDZ2 {
 
         driver = new ChromeDriver();
         driver.get("https://avtogrand.com.ua/ua/");
+        searchPage = new SearchPage(driver);
+        resultPage = new ResultPage(driver);
 
     }
 
     @Test
-    public void myTest1() throws InterruptedException {
+    public void myTest1()  {
+
+     searchPage.enterWord();
+     searchPage.submitSearch();
+     resultPage.getText();
 
 
-        WebElement search = driver.findElement(By.id("searchinput"));
-        search.sendKeys("перетворювач іржі тригер skadi");
 
+        Assert.assertEquals(resultPage.getText(),"ПЕРЕТВОРЮВАЧ ІРЖІ ТРИГЕР 500 МЛ ЦИНКАР SKADI");
 
-        WebElement submitButton = driver.findElement(By.xpath("//button[@class=\"btn btn-default btn-lg button-search\"]"));
-        submitButton.click();
-
-        WebElement name = driver.findElement(By.xpath("//h4"));
-
-        Assert.assertEquals(name.getText(),"ПЕРЕТВОРЮВАЧ ІРЖІ ТРИГЕР 500 МЛgit --version ЦИНКАР SKADI");
-
-        Thread.sleep(3000);
 
     }
 
